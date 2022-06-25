@@ -36,6 +36,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "FireStyleNext",
+                    "type": "Button",
+                    "id": "ebfe4680-3b95-4dbe-b69f-55ab62720317",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "FireStylePrevious",
+                    "type": "Button",
+                    "id": "a126042f-ed29-4609-a858-6bfc04d6b3cc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -234,6 +250,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7b81e6be-d9c7-4016-8e32-49356b6496a2",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse;GamePad",
+                    "action": "FireStyleNext",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ec5b958f-b36e-427b-8c52-6cca5af65fa3",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FireStylePrevious",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

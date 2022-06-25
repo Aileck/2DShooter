@@ -10,6 +10,7 @@ public class ShootingController : MonoBehaviour
 {
     [Header("GameObject/Component References")]
     [Tooltip("The projectile to be fired.")]
+    public GameObject[] projectilePrefabList;
     public GameObject projectilePrefab = null;
     [Tooltip("The transform in the heirarchy which holds projectiles if any")]
     public Transform projectileHolder = null;
@@ -36,6 +37,9 @@ public class ShootingController : MonoBehaviour
     //The input manager which manages player input
     private InputManager inputManager = null;
 
+    public int shootStyle = 0;
+    public int basePower = 0;
+
     /// <summary>
     /// Description:
     /// Standard unity function that runs every frame
@@ -61,6 +65,7 @@ public class ShootingController : MonoBehaviour
     {
         SetupInput();
     }
+
 
     /// <summary>
     /// Description:
@@ -98,10 +103,22 @@ public class ShootingController : MonoBehaviour
     {
         if (isPlayerControlled)
         {
-            if (inputManager.firePressed || inputManager.fireHeld)
+            if ((inputManager.firePressed || inputManager.fireHeld) && shootStyle == 0)
             {
+                fireRate = 0.05f;
                 Fire();
             }
+            if ((inputManager.firePressed || inputManager.fireHeld) && shootStyle == 1)
+            {
+                fireRate = 1f;
+                Fire();
+            }
+            if ((inputManager.firePressed || inputManager.fireHeld) && shootStyle == 2)
+            {
+                fireRate = 0.5f;
+                FireStyle2();
+            }
+
         }   
     }
 
@@ -131,6 +148,25 @@ public class ShootingController : MonoBehaviour
         }
     }
 
+
+    public void FireStyle2()
+    {
+        // If the cooldown is over fire a projectile
+        if ((Time.timeSinceLevelLoad - lastFired) > fireRate)
+        {
+            // Launches a projectile
+            SpawnProjectile2();
+
+            if (fireEffect != null)
+            {
+                Instantiate(fireEffect, transform.position, transform.rotation, null);
+            }
+
+            // Restart the cooldown
+            lastFired = Time.timeSinceLevelLoad;
+        }
+    }
+
     /// <summary>
     /// Description:
     /// Spawns a projectile and sets it up
@@ -146,6 +182,7 @@ public class ShootingController : MonoBehaviour
         {
             // Create the projectile
             GameObject projectileGameObject = Instantiate(projectilePrefab, transform.position, transform.rotation, null);
+            projectileGameObject.GetComponent<Damage>().damageAmount += basePower;
 
             // Account for spread
             Vector3 rotationEulerAngles = projectileGameObject.transform.rotation.eulerAngles;
@@ -159,4 +196,71 @@ public class ShootingController : MonoBehaviour
             }
         }
     }
+
+    public void SpawnProjectile2()
+    {
+        // Check that the prefab is valid
+        if (projectilePrefab != null)
+        {
+            // Create the projectile
+            GameObject projectileGameObject = Instantiate(projectilePrefab, transform.position, transform.rotation, null);
+            GameObject projectileGameObject2 = Instantiate(projectilePrefab, transform.position, transform.rotation, null);
+            GameObject projectileGameObject3 = Instantiate(projectilePrefab, transform.position, transform.rotation, null);
+            GameObject projectileGameObject4 = Instantiate(projectilePrefab, transform.position, transform.rotation, null);
+
+            projectileGameObject.GetComponent<Damage>().damageAmount += basePower;
+            projectileGameObject2.GetComponent<Damage>().damageAmount += basePower;
+            projectileGameObject3.GetComponent<Damage>().damageAmount += basePower;
+            projectileGameObject4.GetComponent<Damage>().damageAmount += basePower;
+
+            // Account for spread
+            Vector3 rotationEulerAngles = projectileGameObject.transform.rotation.eulerAngles;
+            rotationEulerAngles.z += Random.Range(-projectileSpread, projectileSpread);
+            projectileGameObject.transform.rotation = Quaternion.Euler(rotationEulerAngles);
+
+            // Account for spread
+            rotationEulerAngles = projectileGameObject2.transform.rotation.eulerAngles + new Vector3(0, 0, 270);
+            rotationEulerAngles.z += Random.Range(-projectileSpread, projectileSpread);
+            projectileGameObject2.transform.rotation = Quaternion.Euler(rotationEulerAngles);
+;
+            rotationEulerAngles = projectileGameObject3.transform.rotation.eulerAngles + new Vector3(0,0,90);
+            rotationEulerAngles.z += Random.Range(-projectileSpread, projectileSpread);
+            projectileGameObject3.transform.rotation = Quaternion.Euler(rotationEulerAngles);
+
+
+            // Account for spread
+            rotationEulerAngles = projectileGameObject4.transform.rotation.eulerAngles + new Vector3(0, 0, 180);
+            rotationEulerAngles.z += Random.Range(-projectileSpread, projectileSpread);
+            projectileGameObject4.transform.rotation = Quaternion.Euler(rotationEulerAngles);
+
+            // Keep the heirarchy organized
+            if (projectileHolder != null)
+            {
+                projectileGameObject.transform.SetParent(projectileHolder);
+                projectileGameObject2.transform.SetParent(projectileHolder);
+                projectileGameObject3.transform.SetParent(projectileHolder);
+                projectileGameObject4.transform.SetParent(projectileHolder);
+            }
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (isPlayerControlled)
+        {
+            if (collision.gameObject.tag == "StyleChanger")
+            {
+                shootStyle = collision.gameObject.GetComponent<StyleChanger>().style;
+                projectilePrefab = projectilePrefabList[collision.gameObject.GetComponent<StyleChanger>().style];
+            }
+            else if (collision.gameObject.tag == "StatChanger")
+            {
+                this.gameObject.GetComponent<Health>().currentHealth += collision.GetComponent<StatChanger>().armor;
+                basePower += collision.GetComponent<StatChanger>().power;
+                this.gameObject.GetComponent<Controller>().moveSpeed += collision.GetComponent<StatChanger>().speed;
+
+            }
+        }
+    }
+
 }
