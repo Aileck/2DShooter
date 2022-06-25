@@ -105,7 +105,7 @@ public class ShootingController : MonoBehaviour
         {
             if ((inputManager.firePressed || inputManager.fireHeld) && shootStyle == 0)
             {
-                fireRate = 0.05f;
+                fireRate = 0.1f;
                 Fire();
             }
             if ((inputManager.firePressed || inputManager.fireHeld) && shootStyle == 1)
