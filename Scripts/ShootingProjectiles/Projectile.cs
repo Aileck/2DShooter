@@ -10,6 +10,8 @@ public class Projectile : MonoBehaviour
     [Tooltip("The distance this projectile will move each second.")]
     public float projectileSpeed = 3.0f;
 
+    public float dissapear = 20f;
+
     /// <summary>
     /// Description:
     /// Standard Unity function called once per frame
@@ -20,6 +22,10 @@ public class Projectile : MonoBehaviour
     /// </summary>
     private void Update()
     {
+        dissapear -= Time.deltaTime;
+        if (dissapear <= 0) {
+            Destroy(this.gameObject);
+        }
         MoveProjectile();
     }
 

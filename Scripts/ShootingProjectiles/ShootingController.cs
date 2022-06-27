@@ -253,13 +253,17 @@ public class ShootingController : MonoBehaviour
             {
                 shootStyle = collision.gameObject.GetComponent<StyleChanger>().style;
                 projectilePrefab = projectilePrefabList[collision.gameObject.GetComponent<StyleChanger>().style];
+
+                Destroy(collision.gameObject);
             }
             else if (collision.gameObject.tag == "StatChanger")
             {
-                this.gameObject.GetComponent<Health>().currentHealth += collision.GetComponent<StatChanger>().armor;
-                basePower += collision.GetComponent<StatChanger>().power;
-                this.gameObject.GetComponent<Controller>().moveSpeed += collision.GetComponent<StatChanger>().speed;
+                StatManager sm = GameObject.FindGameObjectWithTag("StatManager").GetComponent<StatManager>();
+                sm.baseArmor += collision.gameObject.GetComponent<StatChanger>().armor;
+                sm.basePower += collision.gameObject.GetComponent<StatChanger>().power;
+                sm.baseSpeed += collision.gameObject.GetComponent<StatChanger>().speed;
 
+                Destroy(collision.gameObject);
             }
         }
     }

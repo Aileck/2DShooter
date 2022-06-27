@@ -25,6 +25,7 @@ public class UIManager : MonoBehaviour
     [Header("Pause Settings")]
     [Tooltip("The index of the pause page in the pages list")]
     public int pausePageIndex = 1;
+
     [Tooltip("Whether or not to allow pausing")]
     public bool allowPause = true;
 
@@ -40,6 +41,8 @@ public class UIManager : MonoBehaviour
     // The Input Manager to listen for pausing
     [SerializeField]
     private InputManager inputManager;
+
+    public bool pause;
 
     /// <summary>
     /// Description:
@@ -163,6 +166,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void UpdateUI()
     {
+
         SetUpUIElements();
         foreach (UIelement uiElement in UIelements)
         {
