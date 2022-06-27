@@ -19,10 +19,12 @@ public class StatManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        armor = player.GetComponent<Health>().currentHealth;
-        power = player.GetComponent<ShootingController>().projectilePrefab.GetComponent<Damage>().damageAmount + player.GetComponent<ShootingController>().basePower;
-        speed = player.GetComponent<Controller>().moveSpeed;
-        shootStyle = player.GetComponent<ShootingController>().shootStyle;
+        if (!GameManager.instance.gameIsOver) { 
+            armor = player.GetComponent<Health>().currentHealth;
+            power = player.GetComponent<ShootingController>().projectilePrefab.GetComponent<Damage>().damageAmount + player.GetComponent<ShootingController>().basePower;
+            speed = player.GetComponent<Controller>().moveSpeed;
+            shootStyle = player.GetComponent<ShootingController>().shootStyle;
+        }
     }
 
 

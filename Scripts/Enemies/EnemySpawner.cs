@@ -39,6 +39,8 @@ public class EnemySpawner : MonoBehaviour
     [Tooltip("The object to make projectiles child objects of.")]
     public Transform projectileHolder = null;
 
+    public bool incrementEnermyToDefeat;
+
     /// <summary>
     /// Description:
     /// Standard Unity function called every frame
@@ -88,6 +90,9 @@ public class EnemySpawner : MonoBehaviour
         // Make sure the prefab is valid
         if (enemyPrefab != null)
         {
+            if (incrementEnermyToDefeat)
+                GameObject.FindGameObjectWithTag("GameManager").gameObject.GetComponent<GameManager>().enemiesToDefeat++;
+
             // Create the enemy gameobject
             GameObject enemyGameObject = Instantiate(enemyPrefab, spawnLocation, enemyPrefab.transform.rotation, null);
             Enemy enemy = enemyGameObject.GetComponent<Enemy>();

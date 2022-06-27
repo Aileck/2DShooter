@@ -25,6 +25,8 @@ public class Damage : MonoBehaviour
     [Tooltip("Whether or not to apply damage on non-trigger collider collisions")]
     public bool dealDamageOnCollision = false;
 
+    public bool player = false;
+
     /// <summary>
     /// Description: 
     /// Standard Unity function called whenever a Collider2D enters any attached 2D trigger collider
@@ -93,6 +95,10 @@ public class Damage : MonoBehaviour
         {
             if (collidedHealth.teamId != this.teamId)
             {
+                if (player) {
+                    HitManager hitManager = GameObject.FindGameObjectWithTag("HitManager").gameObject.GetComponent<HitManager>();
+                    hitManager.thisHit = collisionGameObject;
+                }
                 collidedHealth.TakeDamage(damageAmount);
                 if (hitEffect != null)
                 {

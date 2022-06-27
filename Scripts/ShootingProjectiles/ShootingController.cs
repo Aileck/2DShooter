@@ -40,6 +40,7 @@ public class ShootingController : MonoBehaviour
     public int shootStyle = 0;
     public int basePower = 0;
 
+
     /// <summary>
     /// Description:
     /// Standard unity function that runs every frame
@@ -110,12 +111,12 @@ public class ShootingController : MonoBehaviour
             }
             if ((inputManager.firePressed || inputManager.fireHeld) && shootStyle == 1)
             {
-                fireRate = 1f;
+                fireRate = 0.4f;
                 Fire();
             }
             if ((inputManager.firePressed || inputManager.fireHeld) && shootStyle == 2)
             {
-                fireRate = 0.5f;
+                fireRate = 0.3f;
                 FireStyle2();
             }
 

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4867940027157724161}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54,3 +54,4 @@ MonoBehaviour:
   victoryEffect: {fileID: 6671380785883311296, guid: 1dbb1fe3f1006ce4b89f203ed833e04e, type: 3}
   gameOverPageIndex: 0
   gameOverEffect: {fileID: 3623134921759700094, guid: bfc99d98d6418b04590bafbb9ddc8cd5, type: 3}
+  gameIsOver: 0
