@@ -145,3 +145,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   style: 2
+  dissapear: 20
+  ifDestroy: 1

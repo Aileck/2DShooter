@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
     public int enemiesToDefeat = 10;
     
     // The number of enemies defeated in game
-    private int enemiesDefeated = 0;
+    public int enemiesDefeated = 0;
 
     [Tooltip("Whether or not to print debug statements about whether the game can be won or not according to the game manager's" +
         " search at start up")]
@@ -347,5 +347,10 @@ public class GameManager : MonoBehaviour
             uiManager.allowPause = false;
             uiManager.GoToPage(gameOverPageIndex);
         }
+    }
+
+    public void LoadLevelByName(string scene)
+    {
+        SceneManager.LoadScene(scene);
     }
 }

@@ -97,9 +97,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0f308db9f7e712479cde6d421ba1eea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armor: 0
+  armor: 5
   power: 0
   speed: 1
+  dissapear: 20
+  ifDissapear: 1
 --- !u!50 &5858114016175587204
 Rigidbody2D:
   serializedVersion: 4

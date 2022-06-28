@@ -95,9 +95,11 @@ public class Damage : MonoBehaviour
         {
             if (collidedHealth.teamId != this.teamId)
             {
+                
                 if (player) {
                     HitManager hitManager = GameObject.FindGameObjectWithTag("HitManager").gameObject.GetComponent<HitManager>();
                     hitManager.thisHit = collisionGameObject;
+                    damageAmount += GameObject.FindGameObjectWithTag("StatManager").gameObject.GetComponent<StatManager>().basePower;
                 }
                 collidedHealth.TakeDamage(damageAmount);
                 if (hitEffect != null)

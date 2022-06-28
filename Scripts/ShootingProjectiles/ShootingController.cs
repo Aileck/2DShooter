@@ -111,7 +111,7 @@ public class ShootingController : MonoBehaviour
             }
             if ((inputManager.firePressed || inputManager.fireHeld) && shootStyle == 1)
             {
-                fireRate = 0.4f;
+                fireRate = 0.5f;
                 Fire();
             }
             if ((inputManager.firePressed || inputManager.fireHeld) && shootStyle == 2)
@@ -251,17 +251,19 @@ public class ShootingController : MonoBehaviour
         {
             if (collision.gameObject.tag == "StyleChanger")
             {
+                GameObject.FindGameObjectWithTag("StatManager").GetComponent<StatManager>().shootStyle = collision.gameObject.GetComponent<StyleChanger>().style;
                 shootStyle = collision.gameObject.GetComponent<StyleChanger>().style;
                 projectilePrefab = projectilePrefabList[collision.gameObject.GetComponent<StyleChanger>().style];
 
-                Destroy(collision.gameObject);
+                if(collision.gameObject.GetComponent<StyleChanger>().ifDestroy)
+                    Destroy(collision.gameObject);
             }
             else if (collision.gameObject.tag == "StatChanger")
             {
-                StatManager sm = GameObject.FindGameObjectWithTag("StatManager").GetComponent<StatManager>();
-                sm.baseArmor += collision.gameObject.GetComponent<StatChanger>().armor;
-                sm.basePower += collision.gameObject.GetComponent<StatChanger>().power;
-                sm.baseSpeed += collision.gameObject.GetComponent<StatChanger>().speed;
+                //StatManager sm = GameObject.FindGameObjectWithTag("StatManager").GetComponent<StatManager>();
+                this.GetComponent<Health>().currentHealth += collision.gameObject.GetComponent<StatChanger>().armor;
+                GameObject.FindGameObjectWithTag("StatManager").GetComponent<StatManager>().basePower += collision.gameObject.GetComponent<StatChanger>().power;
+                GameObject.FindGameObjectWithTag("StatManager").GetComponent<StatManager>().baseSpeed += collision.gameObject.GetComponent<StatChanger>().speed;
 
                 Destroy(collision.gameObject);
             }

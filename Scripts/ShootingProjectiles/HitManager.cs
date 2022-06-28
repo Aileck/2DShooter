@@ -34,7 +34,7 @@ public class HitManager : MonoBehaviour
             enermyHPBar.value = this.thisHit.GetComponent<Health>().currentHealth;
 
             string currentHP = "????";
-            if (unkown)
+            if (!unkown)
                 currentHP = this.thisHit.GetComponent<Health>().currentHealth + "/" + this.thisHit.GetComponent<Health>().maximumHealth;
             hpText.text = currentHP;
         }

@@ -7,6 +7,7 @@ public class StyleChanger : MonoBehaviour
     public int style;
 
     public float dissapear = 20f;
+    public bool ifDestroy = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +18,7 @@ public class StyleChanger : MonoBehaviour
     void Update()
     {
         dissapear -= Time.deltaTime;
-        if (dissapear <= 0)
+        if (dissapear <= 0 && ifDestroy)
         {
             Destroy(this.gameObject);
         }
